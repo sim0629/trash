@@ -80,7 +80,7 @@ namespace CsprojOption
             }
         }
 
-        static void Do2(string path)
+        static void CheckDebugOptimization(string path)
         {
             string s;
             var encoding = Encoding.UTF8;
@@ -125,7 +125,7 @@ namespace CsprojOption
                 var dir_name = Path.GetDirectoryName(path);
                 if (dir_name.EndsWith(".svn")) continue;
                 if (dir_name.Split('\\').Contains("tags")) continue;
-                Do2(path);
+                CheckDebugOptimization(path);
             }
         }
     }
