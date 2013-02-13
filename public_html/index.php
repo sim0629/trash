@@ -1,5 +1,5 @@
 <?php
-    $dday = (int)((mktime(0, 0, 0, 4, 21, 2014) - time()) / 60 / 60 / 24) + 1;
+    $dday = (int)((mktime(0, 0, 0, 4, 20, 2014) - time()) / 60 / 60 / 24) + 1;
     $type = $_GET['type'];
     if($type == 'xml') {
         $xml = '<?xml version="1.0" encoding="utf-8" ?>';
