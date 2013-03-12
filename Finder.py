@@ -3,13 +3,15 @@
 import BeautifulSoup
 import Queue
 import sys
-import urllib
+import urllib2
 
 class Finder:
-    def __init__(self, rival_ids):
+    def __init__(self, ssid, rival_ids):
         if not rival_ids:
             rival_ids = ["57710029431862"]
         self._url_format = "http://p.eagate.573.jp/game/jubeat/saucer/s/playdata/history.html?rival_id=%s&page=%d"
+        self._opener = urllib2.build_opener()
+        self._opener.addheaders.append(('Cookie', 'M573SSID=%s' % ssid))
         self._q = Queue.Queue()
         self._d = {}
         for rival_id in rival_ids:
@@ -28,7 +30,7 @@ class Finder:
     def _crawl(self, rival_id):
         for page_num in [1, 2, 3]:
             url = self._url_format % (rival_id, page_num)
-            data = urllib.urlopen(url)
+            data = self._opener.open(url)
             self._parse(data)
 
     def run(self):
@@ -37,6 +39,9 @@ class Finder:
             self._crawl(rival_id)
 
 if __name__ == "__main__":
-    finder = Finder(sys.argv[1:])
+    if len(sys.argv) < 2:
+        print "ssid missing."
+        sys.exit(1)
+    finder = Finder(sys.argv[1], sys.argv[2:])
     finder.run()
     sys.exit(0)
