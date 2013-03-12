@@ -39,7 +39,13 @@ class Finder:
     def _crawl(self, rival_id):
         for page_num in [1, 2, 3]:
             url = self._url_format % (rival_id, page_num)
-            data = self._opener.open(url)
+            while True:
+                try:
+                    data = self._opener.open(url)
+                    break
+                except:
+                    sys.stderr.write(sys.exc_info()[0])
+                    sys.stderr.write("\n")
             self._parse(data)
 
     def run(self):
