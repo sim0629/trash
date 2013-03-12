@@ -24,6 +24,7 @@ class Finder:
         self._q.put(rival_id)
         self._len += 1
         self._d[rival_id] = True
+        print rival_id
 
     def _parse(self, data):
         soup = BeautifulSoup.BeautifulSoup(data)
@@ -43,9 +44,9 @@ class Finder:
 
     def run(self):
         while not self._q.empty():
-            print self._len
             rival_id = self._q.get()
             self._crawl(rival_id)
+            sys.stdout.flush()
 
 if __name__ == "__main__":
     if len(sys.argv) < 2:
