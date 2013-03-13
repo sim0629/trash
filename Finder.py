@@ -55,7 +55,7 @@ class Finder:
                     data = self._opener.open(url)
                     break
                 except:
-                    sys.stderr.write(sys.exc_info()[0])
+                    sys.stderr.write(str(sys.exc_info()[0]))
                     sys.stderr.write("\n")
             if not self._parse(data):
                 break
