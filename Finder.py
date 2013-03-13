@@ -2,6 +2,7 @@
 
 import BeautifulSoup
 import Queue
+import re
 import sys
 import urllib2
 
@@ -12,6 +13,7 @@ class Finder:
         self._url_format = "http://p.eagate.573.jp/game/jubeat/saucer/s/playdata/history.html?rival_id=%s&page=%d"
         self._opener = urllib2.build_opener()
         self._opener.addheaders.append(('Cookie', 'M573SSID=%s' % ssid))
+        self._center_class = re.compile(r'\bcenter\b')
         self._q = Queue.Queue()
         self._len = 0
         self._d = {}
@@ -28,13 +30,20 @@ class Finder:
 
     def _parse(self, data):
         soup = BeautifulSoup.BeautifulSoup(data)
+        has = False
         for td in soup.findAll("td", { "class" : "member_name" }):
+            has = True
             a = td.find("a")
             if not a:
                 continue
             href = a["href"]
             rival_id = href.split("=")[1]
             self._enqueue(rival_id)
+        if not has:
+            div = soup.find("div", { "id" : "history" })
+            if div and div.find("div", { "class" : self._center_class }):
+                return False # not open
+        return True
 
     def _crawl(self, rival_id):
         for page_num in [1, 2, 3]:
@@ -46,7 +55,8 @@ class Finder:
                 except:
                     sys.stderr.write(sys.exc_info()[0])
                     sys.stderr.write("\n")
-            self._parse(data)
+            if not self._parse(data):
+                break
 
     def run(self):
         while not self._q.empty():
