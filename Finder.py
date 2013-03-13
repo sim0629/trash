@@ -1,9 +1,11 @@
 # coding: utf-8
 
 import BeautifulSoup
+import datetime
 import Queue
 import re
 import sys
+import time
 import urllib2
 
 class Finder:
@@ -61,6 +63,9 @@ class Finder:
     def run(self):
         while not self._q.empty():
             rival_id = self._q.get()
+            d = datetime.datetime.now()
+            if d.hour == 4 and d.minute > 50: # 573 maintain
+                time.sleep((2 * 60 + 20) * 60)
             self._crawl(rival_id)
             sys.stdout.flush()
 
