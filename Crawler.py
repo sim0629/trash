@@ -30,16 +30,18 @@ class Crawler:
     def _crawl(self, rival_id):
         for page_num in [1, 2, 3]:
             url = self._url_format % (rival_id, page_num)
+            success = True
             while True:
                 try:
                     data = self._opener.open(url)
+                    success = self._save(rival_id, data)
                     break
                 except KeyboardInterrupt:
                     sys.exit(1)
                 except:
                     sys.stderr.write(str(sys.exc_info()[0]))
                     sys.stderr.write("\n")
-            if not self._save(rival_id, data):
+            if not success:
                 break
 
     def run(self):
