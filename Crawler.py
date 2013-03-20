@@ -33,7 +33,7 @@ class Crawler:
         div = soup.find("div", { "id" : "history" })
         if div and div.find("div", { "class" : self._center_class }):
             print "not open : %s" % rival_id
-            return # not open
+            return
         #TODO parse and insert
 
     def _crawl(self, rival_id):
