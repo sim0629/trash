@@ -74,6 +74,7 @@ class Crawler:
                 if d.hour == 4 and d.minute > 50:
                     time.sleep((2 * 60 + 20) * 60)
                 #endregion 573 maintain
+                print d
                 jobs = [
                     gevent.spawn(self._crawl, rival_id)
                     for rival_id in self._rivalids
