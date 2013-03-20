@@ -49,22 +49,25 @@ class Database:
         self._con.commit()
 
     def insert(self, rival_id, jikan, tenpo, mofun_num):
-        self._cur.execute('''
-            INSERT INTO
-            history
-            VALUES
-            (
-                ?,
-                ?,
-                ?,
-                ?
-            )
-        ''', (
-            rival_id,
-            jikan,
-            tenpo,
-            mofun_num,
-        ))
+        try:
+            self._cur.execute('''
+                INSERT INTO
+                history
+                VALUES
+                (
+                    ?,
+                    ?,
+                    ?,
+                    ?
+                )
+            ''', (
+                rival_id,
+                jikan,
+                tenpo,
+                mofun_num,
+            ))
+        except sqlite3.IntegrityError:
+            pass
 
 class Crawler:
     def __init__(self, ssid, rivalid_file):
