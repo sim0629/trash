@@ -45,6 +45,27 @@ class Database:
         ''')
         self._con.commit()
 
+    def commit(self):
+        self._con.commit()
+
+    def insert(self, rival_id, jikan, tenpo, mofun_num):
+        self._cur.execute('''
+            INSERT INTO
+            history
+            VALUES
+            (
+                ?,
+                ?,
+                ?,
+                ?
+            )
+        ''', (
+            rival_id,
+            jikan,
+            tenpo,
+            mofun_num,
+        ))
+
 class Crawler:
     def __init__(self, ssid, rivalid_file):
         self._url_format = "http://p.eagate.573.jp/game/jubeat/saucer/s/playdata/history.html?rival_id=%d"
