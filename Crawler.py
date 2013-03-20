@@ -101,8 +101,7 @@ class Crawler:
             mofun_num = None
             if match:
                 mofun_num = int(match.group(1))
-            print mofun_num
-        #TODO insert
+            self._db.insert(rival_id, jikan, tenpo, mofun_num)
 
     def _crawl(self, rival_id):
         url = self._url_format % rival_id
@@ -131,6 +130,7 @@ class Crawler:
                     for rival_id in self._rivalids
                 ]
                 gevent.joinall(jobs)
+                self._db.commit()
             except KeyboardInterrupt as ex:
                 break
 
