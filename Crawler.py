@@ -25,8 +25,8 @@ class Crawler:
     def __init__(self, ssid, rivalid_file):
         self._url_format = "http://p.eagate.573.jp/game/jubeat/saucer/s/playdata/history.html?rival_id=%s"
         self._opener = urllib2.build_opener()
-        self._opener.addheaders.append(('Cookie', 'M573SSID=%s' % ssid))
-        self._center_class = re.compile(r'\bcenter\b')
+        self._opener.addheaders.append(("Cookie", "M573SSID=%s" % ssid))
+        self._center_class = re.compile(r"\bcenter\b")
         f = open(rivalid_file, "r")
         self._rivalids = [rival_id.strip() for rival_id in f.readlines()]
         f.close()
