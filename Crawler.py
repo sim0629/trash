@@ -17,14 +17,37 @@ class Database:
     def __init__(self, db_path):
         self._con = sqlite3.connect(db_path)
         self._cur = self._con.cursor()
+        self._create_table()
 
     def __del__(self):
         self._cur.close()
         self._con.close()
 
+    def _create_table(self):
+        self._cur.execute('''
+            CREATE TABLE
+            IF NOT EXISTS
+            history
+            (
+                rival_id INT,
+                jikan DATETIME,
+                denpo TEXT,
+                mofun_num INT,
+                PRIMARY KEY (rival_id, jikan)
+            )
+        ''')
+        self._cur.execute('''
+            CREATE INDEX
+            IF NOT EXISTS
+            jikan_index
+            ON history
+            (jikan)
+        ''')
+        self._con.commit()
+
 class Crawler:
     def __init__(self, ssid, rivalid_file):
-        self._url_format = "http://p.eagate.573.jp/game/jubeat/saucer/s/playdata/history.html?rival_id=%s"
+        self._url_format = "http://p.eagate.573.jp/game/jubeat/saucer/s/playdata/history.html?rival_id=%d"
         self._opener = urllib2.build_opener()
         self._opener.addheaders.append(("Cookie", "M573SSID=%s" % ssid))
         self._center_class = re.compile(r"\bcenter\b")
@@ -32,7 +55,7 @@ class Crawler:
         self._jikan = u"プレー日時:"
         self._tenpo = u"プレー店舗:"
         f = open(rivalid_file, "r")
-        self._rivalids = [rival_id.strip() for rival_id in f.readlines()]
+        self._rivalids = [int(rival_id.strip()) for rival_id in f.readlines()]
         f.close()
         self._db = Database("mofun.db")
 
