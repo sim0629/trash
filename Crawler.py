@@ -8,6 +8,7 @@ import re
 import sqlite3
 import sys
 import time
+import unicodedata
 import urllib2
 
 monkey.patch_all(thread=False)
@@ -27,6 +28,9 @@ class Crawler:
         self._opener = urllib2.build_opener()
         self._opener.addheaders.append(("Cookie", "M573SSID=%s" % ssid))
         self._center_class = re.compile(r"\bcenter\b")
+        self._header_class = re.compile(r"\bheader\b")
+        self._jikan = u"プレー日時:"
+        self._tenpo = u"プレー店舗:"
         f = open(rivalid_file, "r")
         self._rivalids = [rival_id.strip() for rival_id in f.readlines()]
         f.close()
@@ -38,9 +42,15 @@ class Crawler:
     def _parse(self, rival_id, data):
         soup = BeautifulSoup.BeautifulSoup(data)
         div = soup.find("div", { "id" : "history" })
-        if div and div.find("div", { "class" : self._center_class }):
+        if not div:
+            print "no history div : %s" % rival_id
+            return
+        if div.find("div", { "class" : self._center_class }):
             print "not open : %s" % rival_id
             return
+        for header in div.findAll("div", { "class" : self._header_class }):
+            text = unicodedata.normalize("NFKD", header.text)
+            print text.replace(self._jikan, "").replace(self._tenpo, "")
         #TODO parse and insert
 
     def _crawl(self, rival_id):
