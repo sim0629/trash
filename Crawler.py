@@ -73,6 +73,7 @@ class Crawler:
         self._opener.addheaders.append(("Cookie", "M573SSID=%s" % ssid))
         self._center_class = re.compile(r"\bcenter\b")
         self._header_class = re.compile(r"\bheader\b")
+        self._mofun_num_pattern = re.compile(r"SaDang MOFUN\s*(\d+)$")
         self._jikan = u"プレー日時:"
         self._tenpo = u"プレー店舗:"
         f = open(rivalid_file, "r")
@@ -94,8 +95,13 @@ class Crawler:
             return
         for header in div.findAll("div", { "class" : self._header_class }):
             text = unicodedata.normalize("NFKD", header.text)
-            print text.replace(self._jikan, "").split(self._tenpo)
-        #TODO parse and insert
+            (jikan, tenpo) = text.replace(self._jikan, "").split(self._tenpo)
+            match = self._mofun_num_pattern.search(tenpo)
+            mofun_num = None
+            if match:
+                mofun_num = int(match.group(1))
+            print mofun_num
+        #TODO insert
 
     def _crawl(self, rival_id):
         url = self._url_format % rival_id
