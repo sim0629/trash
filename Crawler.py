@@ -96,6 +96,7 @@ class Crawler:
         for header in div.findAll("div", { "class" : self._header_class }):
             text = unicodedata.normalize("NFKD", header.text)
             (jikan, tenpo) = text.replace(self._jikan, "").split(self._tenpo)
+            jikan = jikan.replace("/", "-")
             match = self._mofun_num_pattern.search(tenpo)
             mofun_num = None
             if match:
