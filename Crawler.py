@@ -29,9 +29,9 @@ class Database:
             IF NOT EXISTS
             history
             (
-                rival_id INT,
-                jikan DATETIME,
-                denpo TEXT,
+                rival_id INT NOT NULL,
+                jikan DATETIME NOT NULL,
+                tenpo TEXT NOT NULL,
                 mofun_num INT,
                 PRIMARY KEY (rival_id, jikan)
             )
