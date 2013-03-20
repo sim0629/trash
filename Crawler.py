@@ -2,11 +2,15 @@
 
 import BeautifulSoup
 import datetime
+import gevent
+from gevent import monkey
 import re
 import sqlite3
 import sys
 import time
 import urllib2
+
+monkey.patch_all(thread=False)
 
 class Database:
     def __init__(self, db_path):
@@ -60,9 +64,11 @@ class Crawler:
                 if d.hour == 4 and d.minute > 50:
                     time.sleep((2 * 60 + 20) * 60)
                 #endregion 573 maintain
-                for rival_id in self._rivalids:
-                    self._crawl(rival_id) #TODO spawn
-                #TODO join
+                jobs = [
+                    gevent.spawn(self._crawl, rival_id)
+                    for rival_id in self._rivalids
+                ]
+                gevent.joinall(jobs)
             except KeyboardInterrupt as ex:
                 break
 
