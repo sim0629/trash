@@ -50,7 +50,7 @@ class Crawler:
             return
         for header in div.findAll("div", { "class" : self._header_class }):
             text = unicodedata.normalize("NFKD", header.text)
-            print text.replace(self._jikan, "").replace(self._tenpo, "")
+            print text.replace(self._jikan, "").split(self._tenpo)
         #TODO parse and insert
 
     def _crawl(self, rival_id):
