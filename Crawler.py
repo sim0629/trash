@@ -3,6 +3,7 @@
 import BeautifulSoup
 import datetime
 import re
+import sqlite3
 import sys
 import time
 import urllib2
@@ -13,6 +14,12 @@ class Crawler:
         self._opener = urllib2.build_opener()
         self._opener.addheaders.append(('Cookie', 'M573SSID=%s' % ssid))
         self._center_class = re.compile(r'\bcenter\b')
+        self._con = sqlite3.connect("mofun.db")
+        self._cur = self._con.cursor()
+
+    def __del__(self):
+        self._cur.close()
+        self._con.close()
 
     def _parse(self, rival_id, data):
         soup = BeautifulSoup.BeautifulSoup(data)
@@ -29,23 +36,26 @@ class Crawler:
                 data = self._opener.open(url)
                 self._parse(rival_id, data)
                 break
-            except KeyboardInterrupt:
-                sys.exit(0)
+            except KeyboardInterrupt as ex:
+                raise ex
             except:
                 sys.stderr.write(str(sys.exc_info()[0]))
                 sys.stderr.write("\n")
 
     def run_forever(self):
         while True:
-            #region 573 maintain
-            d = datetime.datetime.now()
-            if d.hour == 4 and d.minute > 50:
-                time.sleep((2 * 60 + 20) * 60)
-            #endregion 573 maintain
-            #TODO select rivalids
-            for rival_id in []: #TODO
-                pass #TODO spawn(crawl)
-            #TODO join
+            try:
+                #region 573 maintain
+                d = datetime.datetime.now()
+                if d.hour == 4 and d.minute > 50:
+                    time.sleep((2 * 60 + 20) * 60)
+                #endregion 573 maintain
+                #TODO select rivalids
+                for rival_id in []: #TODO
+                    pass #TODO spawn(crawl)
+                #TODO join
+            except KeyboardInterrupt as ex:
+                break
 
 if __name__ == "__main__":
     if len(sys.argv) < 2:
