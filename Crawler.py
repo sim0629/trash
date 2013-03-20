@@ -8,18 +8,25 @@ import sys
 import time
 import urllib2
 
+class Database:
+    def __init__(self, db_path):
+        self._con = sqlite3.connect(db_path)
+        self._cur = self._con.cursor()
+
+    def __del__(self):
+        self._cur.close()
+        self._con.close()
+
 class Crawler:
     def __init__(self, ssid):
         self._url_format = "http://p.eagate.573.jp/game/jubeat/saucer/s/playdata/history.html?rival_id=%s"
         self._opener = urllib2.build_opener()
         self._opener.addheaders.append(('Cookie', 'M573SSID=%s' % ssid))
         self._center_class = re.compile(r'\bcenter\b')
-        self._con = sqlite3.connect("mofun.db")
-        self._cur = self._con.cursor()
+        self._db = Database("mofun.db")
 
     def __del__(self):
-        self._cur.close()
-        self._con.close()
+        del self._db
 
     def _parse(self, rival_id, data):
         soup = BeautifulSoup.BeautifulSoup(data)
