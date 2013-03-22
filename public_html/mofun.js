@@ -26,9 +26,10 @@ var request = function(start, end, callback) {
 
 var init = function() {
     var options = {
+        title: new Date(),
         chartArea: {
             width: "85%",
-            height: "95%"
+            height: "85%"
         },
         hAxis: {
             minValue: 1,
