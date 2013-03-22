@@ -25,7 +25,7 @@ def history(start_response, start, end):
     cur = con.cursor()
     cur.execute("""
         SELECT
-            strftime('%s', jikan, 'localtime'),
+            strftime('%s', jikan, 'utc'),
             mofun_num
         FROM history
         WHERE
