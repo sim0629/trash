@@ -112,8 +112,10 @@ class Crawler:
             except KeyboardInterrupt as ex:
                 raise ex
             except:
-                sys.stderr.write(str(sys.exc_info()[0]))
-                sys.stderr.write("\n")
+                sys.stderr.write(
+                    "%d %s\n" % (rival_id, str(sys.exc_info()[0]))
+                )
+                break
 
     def run_forever(self):
         while True:
