@@ -101,6 +101,7 @@ class Crawler:
             if match:
                 mofun_num = int(match.group(1))
             self._db.insert(rival_id, jikan, tenpo, mofun_num)
+        self._db.commit()
 
     def _crawl(self, rival_id):
         url = self._url_format % rival_id
@@ -120,15 +121,14 @@ class Crawler:
     def run_forever(self):
         while True:
             try:
-                #region 573 maintain
-                d = datetime.datetime.now()
-                if d.hour == 4 and d.minute > 50:
-                    time.sleep((2 * 60 + 20) * 60)
-                #endregion 573 maintain
-                print d
                 for rival_id in self._rivalids:
+                    #region 573 maintain
+                    d = datetime.datetime.now()
+                    if d.hour == 4 and d.minute > 50:
+                        time.sleep((2 * 60 + 20) * 60)
+                    #endregion 573 maintain
                     self._crawl(rival_id)
-                self._db.commit()
+                print d
             except KeyboardInterrupt as ex:
                 break
 
