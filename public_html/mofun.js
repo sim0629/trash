@@ -8,7 +8,7 @@ var request = function(start, end, callback) {
     $.getJSON(["/history", start, end].join("/"),
         function(data) {
             if(!callback) return;
-            var list = [["Num", "Jikan"]];
+            var list = [["", ""]];
             var history = data["history"];
             if(!history) return;
             for(var i in history) {
@@ -16,7 +16,7 @@ var request = function(start, end, callback) {
                 if(!row) continue;
                 list.push([
                     row["num"],
-                    row["jikan"]
+                    parseInt((unixtime(new Date()) - row["jikan"]) / 6) / 10
                 ]);
             }
             callback(list);
@@ -26,6 +26,26 @@ var request = function(start, end, callback) {
 
 var init = function() {
     var options = {
+        chartArea: {
+            width: "85%",
+            height: "95%"
+        },
+        hAxis: {
+            minValue: 1,
+            maxValue: 6,
+            gridlines: {
+                count: 6
+            }
+        },
+        vAxis: {
+            minValue: 0,
+            maxValue: 60,
+            direction: -1,
+            gridlines: {
+                count: 7
+            }
+        },
+        legend: "none"
     };
 
     var chart = new google.visualization.ScatterChart($("#chart")[0]);
