@@ -3,8 +3,10 @@
 import json
 import os
 import sqlite3
+import sys
 
 DIR_PATH = os.path.dirname(os.path.realpath(__file__))
+sys.path.append(DIR_PATH)
 
 def application(environ, start_response):
     path = environ.get("PATH_INFO", "")
@@ -22,18 +24,22 @@ def history(start_response, start, end):
     con = sqlite3.connect(os.path.join(DIR_PATH, "mofun.db"))
     cur = con.cursor()
     cur.execute("""
-        SELECT strftime(jikan, 'now', 'localtime'), mofun_num
+        SELECT
+            strftime('%s', jikan, 'localtime'),
+            mofun_num
         FROM history
         WHERE
             jikan >= DATETIME(%d, 'unixepoch', 'localtime')
             AND
             jikan < DATETIME(%d, 'unixepoch', 'localtime')
-    """ % (start, end)
+            AND
+            mofun_num IS NOT NULL
+    """ % ("%s", start, end)
     )
     result = [
         {
-            "jikan" : history[0],
-            "num" : history[1]
+            "jikan" : int(history[0]),
+            "num" : int(history[1])
         }
         for history in cur.fetchall()
     ]
