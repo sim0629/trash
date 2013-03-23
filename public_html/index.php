@@ -1,4 +1,7 @@
 <?php
+    $s = (int)$_GET["s"];
+    if($s < 0) $s = 0;
+
     $n = (int)$_GET["n"];
     if($n <= 0) $n = 1;
 
@@ -15,7 +18,7 @@
     <script type="text/javascript" src="mofun.js" charset="utf-8"></script>
     <script type="text/javascript">
         google.load("visualization", "1", {packages:["corechart"]});
-        google.setOnLoadCallback(function() { init(<?=$n?>); });
+        google.setOnLoadCallback(function() { init(<?=$s?>, <?=$n?>); });
     </script>
     <link rel="stylesheet" type="text/css" href="style.css" />
 </head>

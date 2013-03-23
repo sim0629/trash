@@ -16,7 +16,7 @@ var request = function(start, end, callback) {
                 if(!row) continue;
                 list.push([
                     row["num"],
-                    parseInt((unixtime(new Date()) - row["jikan"]) / 6) / 10
+                    parseInt((end - row["jikan"]) / 6) / 10
                 ]);
             }
             callback(list);
@@ -24,9 +24,12 @@ var request = function(start, end, callback) {
     );
 };
 
-var init = function(n) {
+var init = function(s, n) {
+    var end = unixtime(new Date()) - s * 60 * 60;
+    var start = end - n * 60 * 60;
+
     var options = {
-        title: new Date(),
+        title: new Date(end * 1000),
         chartArea: {
             top: 50,
             width: "85%",
@@ -51,9 +54,6 @@ var init = function(n) {
     };
 
     var chart = new google.visualization.ScatterChart($("#chart")[0]);
-
-    var end = unixtime(new Date());
-    var start = end - n * 60 * 60;
 
     request(start, end, function(list) {
         var data = google.visualization.arrayToDataTable(list);
