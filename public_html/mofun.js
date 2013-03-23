@@ -24,7 +24,7 @@ var request = function(start, end, callback) {
     );
 };
 
-var init = function() {
+var init = function(n) {
     var options = {
         title: new Date(),
         chartArea: {
@@ -40,10 +40,10 @@ var init = function() {
         },
         vAxis: {
             minValue: 0,
-            maxValue: 60,
+            maxValue: n * 60,
             direction: -1,
             gridlines: {
-                count: 7
+                count: n * 6 + 1
             }
         },
         legend: "none"
@@ -52,7 +52,7 @@ var init = function() {
     var chart = new google.visualization.ScatterChart($("#chart")[0]);
 
     var end = unixtime(new Date());
-    var start = end - 60 * 60;
+    var start = end - n * 60 * 60;
 
     request(start, end, function(list) {
         var data = google.visualization.arrayToDataTable(list);
@@ -61,4 +61,4 @@ var init = function() {
 };
 
 google.load("visualization", "1", {packages:["corechart"]});
-google.setOnLoadCallback(init);
+google.setOnLoadCallback(function() { init(1); });
