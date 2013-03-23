@@ -59,6 +59,3 @@ var init = function(n) {
         chart.draw(data, options);
     });
 };
-
-google.load("visualization", "1", {packages:["corechart"]});
-google.setOnLoadCallback(function() { init(1); });
