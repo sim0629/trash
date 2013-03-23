@@ -1,10 +1,13 @@
 <?php
+    // s시간 전부터
     $s = (int)$_GET["s"];
     if($s < 0) $s = 0;
 
+    // n시간 분량을
     $n = (int)$_GET["n"];
     if($n <= 0) $n = 1;
 
+    // 화면 높이의 l배 길이로
     $l = (int)$_GET["l"];
     if($l <= 0) $l = 1;
 ?><!DOCTYPE html>
