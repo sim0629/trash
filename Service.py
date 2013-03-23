@@ -26,7 +26,8 @@ def history(start_response, start, end):
     cur.execute("""
         SELECT
             strftime('%s', jikan, 'utc'),
-            mofun_num
+            mofun_num,
+            rival_id
         FROM history
         WHERE
             jikan >= DATETIME(%d, 'unixepoch', 'localtime')
@@ -36,20 +37,29 @@ def history(start_response, start, end):
             mofun_num IS NOT NULL
     """ % ("%s", start, end)
     )
-    result = [
-        {
-            "jikan" : int(history[0]),
-            "num" : int(history[1])
-        }
-        for history in cur.fetchall()
-    ]
+    result = []
+    nise_ids = {}
+    count = 0
+    for history in cur.fetchall():
+        rival_id = int(history[2])
+        if not rival_id in nise_ids:
+            nise_ids[rival_id] = count
+            count += 1
+        result.append(
+            {
+                "jikan" : int(history[0]),
+                "num" : int(history[1]),
+                "nise_id" : nise_ids[rival_id]
+            }
+        )
     cur.close()
     con.close()
     start_response("200 OK", [
         ("Content-type", "application/json; charset=utf-8")
     ])
     return [json.dumps({
-        "history" : result
+        "history" : result,
+        "id_count" : count
     })]
 
 def error(start_response, message):

@@ -8,16 +8,16 @@ var request = function(start, end, callback) {
     $.getJSON(["/history", start, end].join("/"),
         function(data) {
             if(!callback) return;
-            var list = [["", ""]];
             var history = data["history"];
             if(!history) return;
+            var id_count = data["id_count"];
+            var list = [new Array(id_count + 1)];
             for(var i in history) {
                 row = history[i];
                 if(!row) continue;
-                list.push([
-                    row["num"],
-                    parseInt((end - row["jikan"]) / 6) / 10
-                ]);
+                var jikan_vector = new Array(id_count);
+                jikan_vector[row["nise_id"]] = parseInt((end - row["jikan"]) / 6) / 10;
+                list.push([row["num"]].concat(jikan_vector));
             }
             callback(list);
         }
