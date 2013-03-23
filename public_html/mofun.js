@@ -28,6 +28,7 @@ var init = function(n) {
     var options = {
         title: new Date(),
         chartArea: {
+            top: 50,
             width: "85%",
             height: "85%"
         },

@@ -1,6 +1,9 @@
 <?php
     $n = (int)$_GET["n"];
     if($n <= 0) $n = 1;
+
+    $l = (int)$_GET["l"];
+    if($l <= 0) $l = 1;
 ?><!DOCTYPE html>
 <html>
 <head>
@@ -17,6 +20,6 @@
     <link rel="stylesheet" type="text/css" href="style.css" />
 </head>
 <body>
-    <div id="chart"></div>
+    <div id="chart" style="height: <?=($l * 100 - 5)?>%;"></div>
 </body>
 </html>
