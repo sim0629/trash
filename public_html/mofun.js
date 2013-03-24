@@ -11,6 +11,10 @@ var request = function(start, end, callback) {
             var history = data["history"];
             if(!history) return;
             var id_count = data["id_count"];
+            if(id_count == 0) {
+                alert("no result");
+                return;
+            }
             var list = [new Array(id_count + 1)];
             for(var i in history) {
                 row = history[i];
