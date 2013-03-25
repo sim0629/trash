@@ -26,6 +26,7 @@
     <link rel="stylesheet" type="text/css" href="style.css" />
 </head>
 <body>
+    <div id="loading">loading...</div>
     <div id="chart" style="height: <?=($l * 100 - 5)?>%;"></div>
 </body>
 </html>

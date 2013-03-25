@@ -12,9 +12,10 @@ var request = function(start, end, callback) {
             if(!history) return;
             var id_count = data["id_count"];
             if(id_count == 0) {
-                alert("no result");
+                $("#loading").text("[IDLE] " + new Date(end * 1000));
                 return;
             }
+            $("#loading").hide();
             var list = [new Array(id_count + 1)];
             for(var i in history) {
                 row = history[i];
