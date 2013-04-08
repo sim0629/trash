@@ -1,6 +1,6 @@
 #define w(e) && a[e] == a[i] + 1) q = q > g(e) ? q : g(e);
 
-a[101], n, x, j, l, q, i;
+a['  '], n, x, j, l, q, i;
 
 g(i) {
     q = 0;
