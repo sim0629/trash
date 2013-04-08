@@ -1,9 +1,8 @@
-#define w(e) && a[e] == c) q = q > g(e) ? q : g(e);
+#define w(e) && a[e] == a[i] + 1) q = q > g(e) ? q : g(e);
 
-a[101], n, x, j, l, c, q, i;
+a[101], n, x, j, l, q, i;
 
 g(i) {
-    c = a[i] + 1;
     q = 0;
     if(i >= x w(i - x)
     if(i + x < n w(i + x)
