@@ -2,7 +2,7 @@
 
 a[101], n, x, j, l, c, q, i;
 
-g(int i) {
+g(i) {
     c = a[i] + 1;
     q = 0;
     if(i >= x w(i - x)
