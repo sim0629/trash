@@ -1,6 +1,6 @@
 #define w(e) && a[e] == c) q = q > g(e) ? q : g(e);
 
-a[101], n, x = 3, j, l, c, q, i;
+a[101], n, x, j, l, c, q, i;
 
 g(int i) {
     c = a[i] + 1;
