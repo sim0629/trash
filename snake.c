@@ -6,7 +6,7 @@ g(i) {
     q = 0;
     if(i >= x w(i - x)
     if(i + x < n w(i + x)
-    if(i % x > 0 w(i - 1)
+    if(i % x w(i - 1)
     if(i % x < x - 1 w(i + 1)
     return q + 1;
 }
