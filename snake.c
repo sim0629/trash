@@ -1,4 +1,4 @@
-#define w(e) && a[e] == a[i] + 1) q = q > g(e) ? q : g(e);
+#define w(e) && a[e] == a[i] + 1 && q < g(e)) q = g(e);
 
 a['  '], n, x, j, l, q, i, k;
 
