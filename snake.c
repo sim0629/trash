@@ -1,7 +1,7 @@
 #define w(e) && a[i e] == a[i] + 1 && q < g(i e)) q = g(i e);
 #define K if(i
 
-a['  '], n, x, j, q, i, k;
+a['  '], n, x, j, q, i;
 
 g(i) {
     q = 0;
@@ -16,11 +16,11 @@ main() {
     for(; ~scanf("%d", a + n); n++)
         for(; x * x < n; x++);
 
-    for(; i < n; i++)
+    for(i = n; i--;)
         j = g(i) > g(j) ? i : j;
 
-    for(; k < g(j); k++)
-        printf("%d ", a[j] + k);
+    for(; ++i < g(j);)
+        printf("%d ", a[j] + i);
 
     return 0;
 }
