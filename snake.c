@@ -16,7 +16,7 @@ main() {
     for(; x * x < n; x++);
     
     for(i = 0; i < n; i++)
-        if(g(i) > g(j)) j = i;
+        j = g(i) > g(j) ? i : j;
 
     for(i = 0; i < g(j); i++)
         printf("%d ", a[j] + i);
