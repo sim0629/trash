@@ -14,7 +14,7 @@ g(i) {
 main() {
     for(; ~scanf("%d", a + n); n++);
     for(; x * x < n; x++);
-    
+
     for(i = 0; i < n; i++)
         j = g(i) > g(j) ? i : j;
 
