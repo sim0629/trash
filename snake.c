@@ -1,13 +1,13 @@
-#define w(e) && a[e] == a[i] + 1 && q < g(e)) q = g(e);
+#define w(e) && a[i e] == a[i] + 1 && q < g(i e)) q = g(i e);
 
 a['  '], n, x, j, q, i, k;
 
 g(i) {
     q = 0;
-    if(i >= x w(i - x)
-    if(i + x < n w(i + x)
-    if(i % x w(i - 1)
-    if(i % x < x - 1 w(i + 1)
+    if(i >= x w(-x)
+    if(i + x < n w(+x)
+    if(i % x w(-1)
+    if(i % x < x - 1 w(+1)
     return q + 1;
 }
 
