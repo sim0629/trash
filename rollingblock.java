@@ -59,11 +59,14 @@ public class rollingblock {
 			if(tile == -1)
 				break;
 			
-			else if((char) tile == '\n' || (char) tile == '\r')
+			else if((char) tile == '\n')
 			{
 				row++;
 				col = 0;
 				
+			}
+			else if((char) tile == '\r')
+			{
 			}
 			else if((char) tile == 'S')
 			{
