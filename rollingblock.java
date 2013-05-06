@@ -129,8 +129,7 @@ public class rollingblock {
 			{
 				if(!root.containsKey(new Coordinate(chkU2,y,state.V)))
 				{
-					s += "U";
-					root.put(new Coordinate(chkU2,y,state.V), s);
+					root.put(new Coordinate(chkU2,y,state.V), s + "U");
 					visiting.add(new Coordinate(chkU2,y,state.V));
 				}
 			}
@@ -140,8 +139,7 @@ public class rollingblock {
 			{
 				if(!root.containsKey(new Coordinate(x,chkL1,state.H)))
 				{
-				s += "L";
-				root.put(new Coordinate(x,chkL1,state.H), s);
+				root.put(new Coordinate(x,chkL1,state.H), s + "L");
 				visiting.add(new Coordinate(x,chkL1,state.H));
 				}
 			}
@@ -151,8 +149,7 @@ public class rollingblock {
 			{
 				if(!root.containsKey(new Coordinate(chkD1,y,state.V)))
 				{
-					s += "D";
-					root.put(new Coordinate(chkD1,y,state.V), s);
+					root.put(new Coordinate(chkD1,y,state.V), s + "D");
 					visiting.add(new Coordinate(chkD1,y,state.V));
 				}
 			}
@@ -162,8 +159,7 @@ public class rollingblock {
 			{
 				if(!root.containsKey(new Coordinate(x,chkR2,state.H)))
 				{
-					s += "R";
-					root.put(new Coordinate(x,chkR2,state.H), s);
+					root.put(new Coordinate(x,chkR2,state.H), s + "R");
 					visiting.add(new Coordinate(x,chkR2,state.H));
 				}
 			}
@@ -178,8 +174,7 @@ public class rollingblock {
 			{
 				if(!root.containsKey(new Coordinate(chkU1,y,state.H)))
 				{
-					s += "U";
-					root.put(new Coordinate(chkU1,y,state.H), s);
+					root.put(new Coordinate(chkU1,y,state.H), s + "U");
 					visiting.add(new Coordinate(chkU1,y,state.H));
 				}
 			}
@@ -188,8 +183,7 @@ public class rollingblock {
 			{
 				if(!root.containsKey(new Coordinate(x,chkL2,state.S)))
 				{
-					s += "L";
-					root.put(new Coordinate(x,chkL2,state.S), s);
+					root.put(new Coordinate(x,chkL2,state.S), s + "L");
 					visiting.add(new Coordinate(x,chkL2,state.S));
 				}
 			}
@@ -199,8 +193,7 @@ public class rollingblock {
 			{
 				if(!root.containsKey(new Coordinate(chkD1,y,state.H)))
 				{
-					s += "D";
-					root.put(new Coordinate(chkD1,y,state.H), s);
+					root.put(new Coordinate(chkD1,y,state.H), s + "D");
 					visiting.add(new Coordinate(chkD1,y,state.H));
 				}
 			}
@@ -209,8 +202,7 @@ public class rollingblock {
 			{
 				if(!root.containsKey(new Coordinate(x,chkR1,state.S)))
 				{
-					s += "R";
-					root.put(new Coordinate(x,chkR1,state.S), s);
+					root.put(new Coordinate(x,chkR1,state.S), s + "R");
 					visiting.add(new Coordinate(x,chkR1,state.S));
 				}
 			}
@@ -223,8 +215,7 @@ public class rollingblock {
 			{
 				if(!root.containsKey(new Coordinate(chkU1,y,state.S)))
 				{
-					s += "U";
-					root.put(new Coordinate(chkU1,y,state.S), s);
+					root.put(new Coordinate(chkU1,y,state.S), s + "U");
 					visiting.add(new Coordinate(chkU1,y,state.S));
 				}
 			}
@@ -233,8 +224,7 @@ public class rollingblock {
 			{
 				if(!root.containsKey(new Coordinate(x,chkL1,state.V)))
 				{
-					s += "L";
-					root.put(new Coordinate(x,chkL1,state.V), s);
+					root.put(new Coordinate(x,chkL1,state.V), s + "L");
 					visiting.add(new Coordinate(x,chkL1,state.V));
 				}
 			}
@@ -242,8 +232,7 @@ public class rollingblock {
 			{
 				if(!root.containsKey(new Coordinate(chkD2,y,state.S)))
 				{
-					s += "D";
-					root.put(new Coordinate(chkD2,y,state.S), s);
+					root.put(new Coordinate(chkD2,y,state.S), s + "D");
 					visiting.add(new Coordinate(chkD2,y,state.S));
 				}
 			}
@@ -252,8 +241,7 @@ public class rollingblock {
 			{
 				if(!root.containsKey(new Coordinate(x,chkR1,state.V)))
 				{
-					s += "R";
-					root.put(new Coordinate(x,chkR1,state.V), s);
+					root.put(new Coordinate(x,chkR1,state.V), s + "R");
 					visiting.add(new Coordinate(x,chkR1,state.V));
 				}
 			}	
