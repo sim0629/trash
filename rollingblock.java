@@ -229,7 +229,7 @@ public class rollingblock {
 				}
 			}
 			if(map.containsKey(new Coordinate(x,chkL1)) && map.containsKey(new Coordinate(chkD1,chkL1)) 
-					&& map.get(new Coordinate(x,chkL1)) != '-' && map.get(new Coordinate(chkD1,chkL1)) != '.')
+					&& map.get(new Coordinate(x,chkL1)) != '-' && map.get(new Coordinate(chkD1,chkL1)) != '-')
 			{
 				if(!root.containsKey(new Coordinate(x,chkL1,state.V)))
 				{
