@@ -52,6 +52,16 @@ def history(start_response, start, end):
                 "nise_id" : nise_ids[rival_id]
             }
         )
+    cur.execute("""
+        SELECT
+            strftime('%s', MAX(jikan), 'utc')
+        FROM history
+    """ % ("%s")
+    )
+    row = cur.fetchone()
+    last_update = 0
+    if row:
+        last_update = int(row[0])
     cur.close()
     con.close()
     start_response("200 OK", [
@@ -59,7 +69,8 @@ def history(start_response, start, end):
     ])
     return [json.dumps({
         "history" : result,
-        "id_count" : count
+        "id_count" : count,
+        "last_update" : last_update
     })]
 
 def error(start_response, message):
