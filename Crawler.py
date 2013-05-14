@@ -70,6 +70,7 @@ class Crawler:
         self._url_format = "http://p.eagate.573.jp/game/jubeat/saucer/s/playdata/history.html?rival_id=%d"
         self._opener = urllib2.build_opener()
         self._opener.addheaders.append(("Cookie", "M573SSID=%s" % ssid))
+        self._opener.addheaders.append(("User-Agent", "Mozilla/5.0"))
         self._center_class = re.compile(r"\bcenter\b")
         self._header_class = re.compile(r"\bheader\b")
         self._mofun_num_pattern = re.compile(r"SaDang MOFUN\s*(\d+)$")
