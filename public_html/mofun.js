@@ -12,7 +12,11 @@ var request = function(start, end, callback) {
             if(!history) return;
             var id_count = data["id_count"];
             if(id_count == 0) {
-                $("#loading").text("[IDLE] " + new Date(end * 1000));
+                $("#loading").html(
+                    "[IDLE] " + new Date(end * 1000)
+                    + "<br />" +
+                    "[Last Update] " + new Date(data["last_update"] * 1000)
+                );
                 return;
             }
             $("#loading").hide();
