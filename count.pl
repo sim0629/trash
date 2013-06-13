@@ -42,7 +42,7 @@ sub count {
             }
         }
         if($count eq "unknown") {
-            return "unknown";
+            return $name." -x";
         }elsif($break == 1) {
             return $name." -".($count - $my_count);
         }else {
