@@ -22,11 +22,7 @@ sub count {
         my $string = $response->decoded_content;
         my $dom = Mojo::DOM->new;
         $dom->parse($string);
-        my @lis = $dom->find("ol > li")->pluck("text")->each;
-        my $name = $dom->at("ol > li")->all_text;
-        if($name eq $realname) {
-            return "ingyeo";
-        }
+        my @lis = $dom->find("ol > li")->pluck("all_text")->each;
         my $count = "unknown";
         my $my_count;
         my $break = 0;
@@ -42,7 +38,7 @@ sub count {
             }
         }
         if($count eq "unknown") {
-            return $name." -x";
+            return "ingyeo";
         }elsif($break == 1) {
             return $name." -".($count - $my_count);
         }else {
