@@ -40,6 +40,7 @@ sub count {
         if($count eq "unknown") {
             return "ingyeo";
         }elsif($break == 1) {
+            $name =~ s/(.)(.*)/$1_$2/;
             return $name." -".($count - $my_count);
         }else {
             return "none";
