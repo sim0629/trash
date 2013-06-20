@@ -6,7 +6,7 @@ git config user.email "track@localhost"
 
 while :
 do
-    git status > status.log
+    git status -uall > status.log
     git add status.log
     git commit -m "status" -uno
     sleep 10
