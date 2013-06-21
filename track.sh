@@ -3,6 +3,7 @@
 git init
 git config user.name "track"
 git config user.email "track@localhost"
+git config advice.statusUoption false
 
 while :
 do
