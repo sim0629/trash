@@ -38,10 +38,11 @@ sub count {
             }
         }
         if($count eq "unknown") {
-            return "ingyeo = $my_count" if($my_count < 5104);
-            return "ingyeo king = $my_count" if($my_count < 10104);
-            return "gyarados = $my_count" if($my_count < 20104);
-            return "red gyarados = $my_count";
+            my $title = "red gyarados";
+            $title = "gyarados" if($my_count < 20104);
+            $title = "ingyeo king" if($my_count < 10104);
+            $title = "ingyeo" if($my_count < 5104);
+            return "$title = $my_count";
         }elsif($break == 1) {
             $name =~ s/(.)(.*)/$1_$2/;
             return $name." -".($count - $my_count)." = $my_count";
