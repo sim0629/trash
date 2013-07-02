@@ -1,5 +1,6 @@
 #!/usr/bin/perl
 
+use Encode;
 use HTTP::Request;
 use LWP::UserAgent;
 use Mojo::DOM;
@@ -54,7 +55,7 @@ sub count {
 }
 
 sub main {
-    my $plain = shift;
+    my $plain = Encode::decode("utf8", shift);
     $plain = trim($plain);
     my $result = count($plain);
     return "${plain} = ${result}";
