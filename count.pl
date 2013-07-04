@@ -23,20 +23,20 @@ sub count {
         my $string = $response->decoded_content;
         my $dom = Mojo::DOM->new;
         $dom->parse($string);
-        my @lis = $dom->find("ol > li")->pluck("all_text")->each;
+        my $lis = $dom->find("#ranking .rankElement .data");
         my $count = "unknown";
         my $my_count;
         my $break = 0;
-        foreach my $li (@lis) {
-            if($li =~ /(\S+)\s*:\s*(\d+)/) {
-                if($realname eq $1) {
-                    $my_count = $2;
-                    $break = 1;
-                    last;
-                }
-                $name = $1;
-                $count = $2;
+        foreach my $li (@$lis) {
+            my $nick = $li->at(".nick")->text;
+            my $point = $li->at(".point")->text;
+            if($realname eq $nick) {
+                $my_count = $point;
+                $break = 1;
+                last;
             }
+            $name = $nick;
+            $count = $point;
         }
         if($count eq "unknown") {
             my $title = "red gyarados";
