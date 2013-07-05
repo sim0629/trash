@@ -28,10 +28,20 @@ sub fetch {
         my $dom = Mojo::DOM->new;
         $dom->parse($string);
         my $lis = $dom->find("#ranking .rankElement .data");
-        my $rank = 0;
+        my $index = 0;
+        my $draw_count = 0;
+        my $prev_point = 0;
         foreach my $li (@$lis) {
-            $rank++;
+            $index++;
             my $nick = $li->at(".nick")->text;
+            my $point = $li->at(".point")->text;
+            if ($prev_point == $point) {
+                $draw_count++;
+            }else {
+                $draw_count = 0;
+            }
+            $prev_point = $point;
+            my $rank = $index - $draw_count;
             if (exists $ranks{$nick}) {
                 if ($ranks{$nick} != $rank) {
                     my $change = $ranks{$nick} - $rank;
