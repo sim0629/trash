@@ -4,7 +4,6 @@ use Encode;
 use HTTP::Request;
 use LWP::UserAgent;
 use Mojo::DOM;
-use Try::Tiny;
 
 sub trim {
     my $string = shift;
