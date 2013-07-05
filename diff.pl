@@ -70,6 +70,7 @@ sub event_privmsg {
 
 if(caller) {
     require Irssi;
+    fetch();
     Irssi::signal_add("event privmsg", "event_privmsg");
 }else {
     binmode(STDOUT, ":utf8");
