@@ -6,6 +6,8 @@ use LWP::UserAgent;
 use Mojo::DOM;
 use Try::Tiny;
 
+my %ranks;
+
 sub trim {
     my $string = shift;
     $string =~ s/^\s+//;
@@ -14,6 +16,7 @@ sub trim {
 }
 
 sub fetch {
+    my $result = "";
     my $request = HTTP::Request->new(GET => "http://graph.byb.kr");
     my $ua = LWP::UserAgent->new;
     $ua->agent("Mozilla/5.0");
@@ -27,9 +30,18 @@ sub fetch {
         foreach my $li (@$lis) {
             $rank++;
             my $nick = $li->at(".nick")->text;
-            print $nick." ".$rank."\n";
+            if (exists $ranks{$nick}) {
+                if ($ranks{$nick} != $rank) {
+                    my $change = $ranks{$nick} - $rank;
+                    $result .= "$rank. $nick(";
+                    $result .= "+" if($change > 0);
+                    $result .= "$change) | ";
+                }
+            }
+            $ranks{$nick} = $rank;
         }
     }
+    return $result;
 }
 
 sub main {
