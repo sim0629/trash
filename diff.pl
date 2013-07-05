@@ -7,6 +7,8 @@ use Mojo::DOM;
 use Try::Tiny;
 
 my %ranks;
+my $FETCH_CYCLE = 20;
+my $privmsg_count = 0;
 
 sub trim {
     my $string = shift;
@@ -44,19 +46,16 @@ sub fetch {
     return $result;
 }
 
-sub main {
-    my $plain = Encode::decode("utf8", shift);
-    $plain = trim($plain);
-    my $result = count($plain);
-    return "${plain} = ${result}";
-}
-
 sub event_privmsg {
     my ($server, $data, $nick, $address) = @_;
     my ($target, $text) = split(/ :/, $data, 2);
-    $target = $nick if($target !~ /^#/);
-    return unless($text =~ /count\?(.+)?/);
-    $server->command("MSG ${target} ".main($+));
+    return if ($target !~ /^#channel$/);
+    $privmsg_count++;
+    if ($privmsg_count >= $FETCH_CYCLE) {
+        $privmsg_count = 0;
+        my $result = fetch();
+        $server->command("MSG ${target} ${result}") unless ($result eq "");
+    }
 }
 
 if(caller) {
