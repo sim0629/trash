@@ -13,8 +13,7 @@ sub trim {
     return $string;
 }
 
-sub count {
-    my $realname = shift;
+sub fetch {
     my $request = HTTP::Request->new(GET => "http://graph.byb.kr");
     my $ua = LWP::UserAgent->new;
     $ua->agent("Mozilla/5.0");
@@ -24,34 +23,13 @@ sub count {
         my $dom = Mojo::DOM->new;
         $dom->parse($string);
         my $lis = $dom->find("#ranking .rankElement .data");
-        my $count = "unknown";
-        my $my_count;
-        my $break = 0;
+        my $rank = 0;
         foreach my $li (@$lis) {
+            $rank++;
             my $nick = $li->at(".nick")->text;
-            my $point = $li->at(".point")->text;
-            if($realname eq $nick) {
-                $my_count = $point;
-                $break = 1;
-                last;
-            }
-            $name = $nick;
-            $count = $point;
-        }
-        if($count eq "unknown") {
-            my $title = "red gyarados";
-            $title = "gyarados" if($my_count < 20104);
-            $title = "ingyeo king" if($my_count < 10104);
-            $title = "ingyeo" if($my_count < 5104);
-            return "$title = $my_count";
-        }elsif($break == 1) {
-            $name =~ s/(.)(.*)/$1_$2/;
-            return $name." -".($count - $my_count)." = $my_count";
-        }else {
-            return "none";
+            print $nick." ".$rank."\n";
         }
     }
-    return "fail";
 }
 
 sub main {
@@ -74,6 +52,7 @@ if(caller) {
     Irssi::signal_add("event privmsg", "event_privmsg");
 }else {
     binmode(STDOUT, ":utf8");
-    print main(@ARGV[0]);
+    print fetch();
+    #print main(@ARGV[0]);
     print "\n";
 }
