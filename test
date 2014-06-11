@@ -1,0 +1,15 @@
+require 'sinatra'
+
+get '/' do
+
+  a = 1
+
+
+
+
+  'Hi'
+end
+
+get '/diff' do
+  'diff'
+end
