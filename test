@@ -10,6 +10,16 @@ get '/' do
   'Hi'
 end
 
+post '/' do
+
+  a = 1
+
+
+
+
+  'Hi'
+end
+
 get '/diff' do
   'diff'
 end
