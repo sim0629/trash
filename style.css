@@ -1,0 +1,35 @@
+﻿/* sugang */
+
+#header,
+.section,
+.tbl_basic td,
+.apply_cont,
+.apply_box
+{
+	margin: 0 !important;
+	padding: 0 !important;
+}
+
+.f,
+.seach_tit,
+.sec_tit,
+.tab_box,
+.tbl_basic thead,
+.apply_txt
+{
+	display: none !important;
+}
+
+.scroll_cont {
+	height: 310px !important;
+}
+
+.tbl_basic input[type="checkbox"] {
+	width: 50px !important;
+	height: 50px !important;
+}
+
+.apply_box {
+	width: 100% !important;
+	zoom: 200%;
+}
