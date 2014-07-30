@@ -10,7 +10,8 @@ s.innerHTML =
 "var fc_os = document.getElementsByClassName('fc_o'), fc_o;" +
 "fc_os && fc_os.length >= 3 && (fc_o = fc_os[2]);" +
 "var n = parseInt(fc_o.innerHTML);" +
-"$('.tbl_basic tbody tr').eq(n * 2).find('input').eq(0).click();"
+"var m = [1, 5, 6, 2, 3, 0, 4];" +
+"$('.tbl_basic tbody input[type=checkbox]').eq(m[n]).click();"
 ;
 s.onload = function() {
 	this.parentNode.removeChild(this);
