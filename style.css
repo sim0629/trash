@@ -13,7 +13,6 @@
 .f,
 .seach_tit,
 .sec_tit,
-.tab_box,
 .tbl_basic thead,
 .apply_txt
 {
@@ -32,4 +31,8 @@
 .apply_box {
   width: 100% !important;
   zoom: 200%;
+}
+
+.tab_box {
+  margin-bottom: 0 !important;
 }
