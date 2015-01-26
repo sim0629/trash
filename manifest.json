@@ -1,12 +1,12 @@
 ﻿{
-	"manifest_version": 2,
-	"name": "수강신청 도우미",
-	"version": "0.0.1",
-	"content_scripts": [
-		{
-			"matches": ["http://sugang.snu.ac.kr/sugang/ca/*"],
-			"css": ["style.css"],
-			"js": ["script.js"]
-		}
-	]
+  "manifest_version": 2,
+  "name": "수강신청 도우미",
+  "version": "0.0.1",
+  "content_scripts": [
+    {
+      "matches": ["http://sugang.snu.ac.kr/sugang/ca/*"],
+      "css": ["style.css"],
+      "js": ["script.js"]
+    }
+  ]
 }

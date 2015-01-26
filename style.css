@@ -6,8 +6,8 @@
 .apply_cont,
 .apply_box
 {
-	margin: 0 !important;
-	padding: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
 }
 
 .f,
@@ -17,19 +17,19 @@
 .tbl_basic thead,
 .apply_txt
 {
-	display: none !important;
+  display: none !important;
 }
 
 .scroll_cont {
-	height: 360px !important;
+  height: 360px !important;
 }
 
 .tbl_basic input[type="checkbox"] {
-	width: 50px !important;
-	height: 50px !important;
+  width: 50px !important;
+  height: 50px !important;
 }
 
 .apply_box {
-	width: 100% !important;
-	zoom: 200%;
+  width: 100% !important;
+  zoom: 200%;
 }
