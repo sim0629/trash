@@ -1,18 +1,30 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="sugangOptionsApp" ng-csp>
 <head>
   <meta charset="utf-8">
   <title>수강신청 도우미 설정</title>
+  <link rel="stylesheet" href="angular-csp.css">
+  <script src="angular.min.js"></script>
+  <script src="options.js"></script>
 </head>
 <body>
-
-  순서:
-  <input id="order" type="text">
-
-  <div id="status"></div>
-  <button id="save">저장</button>
-
-  <script src="options.js"></script>
-
+  <h2>과목</h2>
+  <div ng-controller="SubjectsController">
+    <div>
+      <button ng-click="save()">저장</button>
+      <span ng-hide="saved">*</span>
+    </div>
+    <ol>
+      <li ng-repeat="subject in subjects track by $index">
+        과목번호: <input type="text" ng-model="subject.id">
+        강좌번호: <input type="text" ng-model="subject.number">
+        [과목명: <input type="text" ng-model="subject.name">]
+        <button ng-click="remove($index)">제거</button>
+      </li>
+      <li>
+        <button ng-click="add()">추가</button>
+      </li>
+    </ol>
+  </div>
 </body>
 </html>

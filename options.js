@@ -1,29 +1,37 @@
 /* options */
 
-var save = function() {
-  var status_elt = document.getElementById('status');
-  status_elt.textContent = '';
+(function() {
+  var app = angular.module("sugangOptionsApp", []);
 
-  var order_elt = document.getElementById('order');
-  var order_value = order_elt.value;
-  var order_array = order_value.split(',');
-  for(var i = 0; i < order_array.length; i++)
-    order_array[i] = +order_array[i];
+  app.controller("SubjectsController", ["$scope", function($scope) {
+    $scope.subjects = [];
+    $scope.saved = true;
 
-  chrome.storage.sync.set({
-    orders: order_array
-  }, function() {
-    status_elt.textContent = order_array.join(',');
-  });
-};
+    $scope.add = function() {
+      $scope.subjects.push({});
+    };
 
-var restore = function() {
-  chrome.storage.sync.get({
-    orders: []
-  }, function(o) {
-    document.getElementById('order').value = o.orders.join(',');
-  });
-};
+    $scope.remove = function(index) {
+      $scope.subjects.splice(index, 1);
+    };
 
-document.addEventListener('DOMContentLoaded', restore);
-document.getElementById('save').addEventListener('click', save);
+    $scope.save = function() {
+      chrome.storage.sync.set({
+        subjects: $scope.subjects
+      }, function() {
+        $scope.saved = true;
+        $scope.$apply();
+      });
+    };
+
+    chrome.storage.sync.get({
+      subjects: []
+    }, function(value) {
+      $scope.subjects = value.subjects;
+      $scope.$apply();
+      $scope.$watch("subjects", function() {
+        $scope.saved = false;
+      }, true);
+    });
+  }]);
+})();
