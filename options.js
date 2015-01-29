@@ -29,7 +29,8 @@
     }, function(value) {
       $scope.subjects = value.subjects;
       $scope.$apply();
-      $scope.$watch("subjects", function() {
+      $scope.$watch("subjects", function(newValue, oldValue) {
+        if(newValue === oldValue) return;
         $scope.saved = false;
       }, true);
     });
