@@ -1,6 +1,12 @@
 ﻿/* sugang */
 
 var inject = function(options) {
+  var patchAlertFunction = function() {
+    window.alert = function(message) { console.log(message); };
+  };
+  if(options.misc.alertDisabled)
+    patchAlertFunction();
+
   var patchMenuLink = function() {
     fnMenu(1, 0);
     $("#submenu02 a").eq(2).attr("href", "/sugang/ca/ca103.action");
@@ -95,6 +101,7 @@ var inject = function(options) {
 chrome.storage.sync.get({
   student: { id: "0" },
   subjects: [],
+  misc: {},
 }, function(value) {
   var s = document.createElement("script");
   s.innerHTML =

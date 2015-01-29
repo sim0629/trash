@@ -78,4 +78,29 @@
       }, true);
     });
   }]);
+
+  app.controller("MiscController", ["$scope", function($scope) {
+    $scope.misc = {};
+    $scope.saved = true;
+
+    $scope.save = function() {
+      chrome.storage.sync.set({
+        misc: $scope.misc
+      }, function() {
+        $scope.saved = true;
+        $scope.$apply();
+      });
+    };
+
+    chrome.storage.sync.get({
+      misc: $scope.misc
+    }, function(value) {
+      $scope.misc = value.misc;
+      $scope.$apply();
+      $scope.$watch("misc", function(newValue, oldValue) {
+        if(newValue === oldValue) return;
+        $scope.saved = false;
+      }, true);
+    });
+  }]);
 })();

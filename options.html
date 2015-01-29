@@ -38,5 +38,14 @@
       </li>
     </ol>
   </div>
+
+  <h2>기타</h2>
+  <div ng-controller="MiscController">
+    <div>
+      <button ng-click="save()">저장</button>
+      <span ng-hide="saved">*</span>
+    </div>
+    <input type="checkbox" ng-model="misc.alertDisabled">alert 끄기
+  </div>
 </body>
 </html>
