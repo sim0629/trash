@@ -42,6 +42,22 @@
       $scope.subjects.splice(index, 1);
     };
 
+    $scope.up = function(index) {
+      var crops = $scope.subjects.splice(index, 1);
+      $scope.subjects.splice(index - 1, 0, crops[0]);
+    };
+    $scope.isTop = function(index) {
+      return index === 0;
+    };
+
+    $scope.down = function(index) {
+      var crops = $scope.subjects.splice(index, 1);
+      $scope.subjects.splice(index + 1, 0, crops[0]);
+    };
+    $scope.isBottom = function(index) {
+      return index === $scope.subjects.length - 1;
+    };
+
     $scope.save = function() {
       chrome.storage.sync.set({
         subjects: $scope.subjects

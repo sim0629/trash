@@ -30,6 +30,8 @@
         강좌번호: <input type="text" ng-model="subject.number">
         [과목명: <input type="text" ng-model="subject.name">]
         <button ng-click="remove($index)">제거</button>
+        <button ng-click="up($index)" ng-disabled="isTop($index)">&#8593;</button>
+        <button ng-click="down($index)" ng-disabled="isBottom($index)">&#8595;</button>
       </li>
       <li>
         <button ng-click="add()">추가</button>
