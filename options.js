@@ -3,6 +3,33 @@
 (function() {
   var app = angular.module("sugangOptionsApp", []);
 
+  app.controller("StudentController", ["$scope", function($scope) {
+    $scope.student = {
+      id: "0",
+    };
+    $scope.saved = true;
+
+    $scope.save = function() {
+      chrome.storage.sync.set({
+        student: $scope.student
+      }, function() {
+        $scope.saved = true;
+        $scope.$apply();
+      });
+    };
+
+    chrome.storage.sync.get({
+      student: $scope.student
+    }, function(value) {
+      $scope.student = value.student;
+      $scope.$apply();
+      $scope.$watch("student", function(newValue, oldValue) {
+        if(newValue === oldValue) return;
+        $scope.saved = false;
+      }, true);
+    });
+  }]);
+
   app.controller("SubjectsController", ["$scope", function($scope) {
     $scope.subjects = [];
     $scope.saved = true;

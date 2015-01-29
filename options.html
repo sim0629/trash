@@ -8,6 +8,16 @@
   <script src="options.js"></script>
 </head>
 <body>
+  <h2>학번</h2>
+  <div ng-controller="StudentController">
+    <div>
+      <button ng-click="save()">저장</button>
+      <span ng-hide="saved">*</span>
+    </div>
+    <input type="radio" ng-model="student.id" value="0">짝수
+    <input type="radio" ng-model="student.id" value="1">홀수
+  </div>
+
   <h2>과목</h2>
   <div ng-controller="SubjectsController">
     <div>
