@@ -1,6 +1,12 @@
 ﻿/* sugang */
 
 var inject = function(options) {
+  var patchMenuLink = function() {
+    fnMenu(1, 0);
+    $("#submenu02 a").eq(2).attr("href", "/sugang/ca/ca103.action");
+  };
+  patchMenuLink();
+
   var patchSubmitButton = function() {
     return $("#CA103, #CA202")
       .submit(function() {
