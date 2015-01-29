@@ -20,7 +20,7 @@
 }
 
 .scroll_cont {
-  height: 360px !important;
+  height: auto !important;
 }
 
 .tbl_basic input[type="checkbox"] {

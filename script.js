@@ -1,25 +1,100 @@
 ﻿/* sugang */
 
-var inject = function(m) {
-  var form = document.getElementById('CA102') || document.getElementById('CA202');
-  form && (form.onsubmit = function() {
-    fnCourseApproveCheck();
-    return false;
-  });
-  var fc_os = document.getElementsByClassName('fc_o'), fc_o;
-  fc_os && fc_os.length >= 3 && (fc_o = fc_os[2]);
-  var n = parseInt(fc_o.innerHTML);
-  $('.tbl_basic tbody input[type=checkbox]').eq(m[n]).click();
+var inject = function(options) {
+  var patchSubmitButton = function() {
+    return $("#CA103, #CA202")
+      .submit(function() {
+        fnCourseApproveCheck();
+        return false;
+      });
+  };
+  if(!patchSubmitButton().length) return;
+
+  var $orders = $(options.subjects);
+  var oddeven = parseInt(options.student.id);
+
+  var $candidates = $(".tab_cont tbody input[type=checkbox]")
+    .parent()
+    .parent()
+    .map(function(index, tr) {
+      var $tr = $(tr);
+      var $tds = $tr.children();
+      return {
+        index: index,
+        id: $tds.eq(4).text(),
+        number: $tds.eq(5).text(),
+        total: +$tds.eq(12).text().split(" ")[0],
+        current: +$tds.eq(14 - oddeven).text(),
+      };
+    });
+
+  var $registered = $(".apply_cont ~ .tbl_sec tbody input[type=checkbox]")
+    .parent()
+    .parent()
+    .map(function(index, tr) {
+      var $tr = $(tr);
+      var $tds = $tr.children();
+      return {
+        id: $tds.eq(1).text(),
+        number: $tds.eq(2).text(),
+      };
+    });
+
+  var isIn = function(object, array) {
+    var i, item;
+    for(i = 0; i < array.length; i++) {
+      item = array[i];
+      if(item.id === object["id"] && item.number === object["number"])
+        return item;
+    }
+    return null;
+  };
+
+  var isFull = function(object) {
+    var half = parseInt(object["total"] / 2);
+    return object["current"] >= half;
+  };
+  var findNextIndex = function() {
+    var i, order;
+    for(i = 0; i < $orders.length; i++) {
+      order = $orders[i];
+      var candidate = isIn(order, $candidates);
+      if(!candidate) continue;
+      if(isIn(order, $registered)) {
+        $(".tab_cont tbody input[type=checkbox]")
+          .eq(candidate.index)
+          .parent()
+          .css("background-color", "green");
+        continue;
+      }
+      if(isFull(candidate)) {
+        $(".tab_cont tbody input[type=checkbox]")
+          .eq(candidate.index)
+          .parent()
+          .css("background-color", "red");
+        continue;
+      }
+      return candidate.index;
+    }
+    return -1;
+  };
+  var nextIndex = findNextIndex();
+  if(nextIndex >= 0) {
+    $(".tab_cont tbody input[type=checkbox]")
+      .eq(nextIndex)
+      .click();
+  }
 };
 
 chrome.storage.sync.get({
-  orders: []
-}, function(o) {
+  student: { id: "0" },
+  subjects: [],
+}, function(value) {
   var s = document.createElement("script");
   s.innerHTML =
-    "var orders = [" + o.orders + "];" +
+    "var options = " + JSON.stringify(value) + ";" +
     "var inject = " + inject + ";" +
-    "inject(orders);";
+    "inject(options);";
   s.onload = function() {
     this.parentNode.removeChild(this);
   };
