@@ -1,0 +1,18 @@
+#sample-colors li {
+  border: 1px solid transparent;
+}
+
+#sample-colors li.selected {
+  border-color: black;
+}
+
+#sample-panel {
+  position: relative;
+  margin: 0;
+  padding: 0;
+}
+
+#sample-square {
+  position: absolute;
+  border: 1px dotted white;
+}

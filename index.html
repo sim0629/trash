@@ -1,0 +1,72 @@
+<!doctype html>
+<html ng-app="hyakuoku">
+<head>
+  <meta charset="utf-8">
+  <title>백억스시</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div ng-controller="hk.PileController">
+    <canvas
+      id="pile"
+      hk-img="img/pile.jpg"
+      hk-img-loaded="getImageData(id)">
+    </canvas>
+    <button ng-click="applyOrig('pile')">Orig</button>
+    <button ng-click="applyY('pile')">Y</button>
+    <button ng-click="applyBin('pile')">Bin</button>
+    <button ng-click="applyQuad('pile')">Quad</button>
+    <button ng-click="applyUV('pile')">UV</button>
+    <button ng-click="applySample('pile')">Sample</button>
+    <button ng-click="applySGM('pile')">SGM</button>
+  </div>
+  <div ng-controller="hk.SampleController">
+    <div
+      id="sample-panel"
+      ng-mousedown="startSampling($event)"
+      ng-mousemove="moveSampling($event)"
+      ng-mouseup="endSampling($event)">
+      <canvas
+        id="sample"
+        hk-img="img/sample.jpg">
+      </canvas>
+      <div
+        id="sample-square"
+        ng-show="isSampling"
+        ng-style="getSquareStyle()">
+      </div>
+    </div>
+    <button ng-click="saveDishes()">
+      save
+    </button>
+    <ul id="sample-colors">
+      <li
+        ng-repeat="dish in dishes track by $index"
+        ng-class="{
+          'selected': $index === selectedIndex,
+        }"
+        >
+        <span
+          ng-click="selectItem($index)"
+          ng-style="dish.rgb | hkColorBackgroundStyle"
+          >
+          &nbsp;&nbsp;
+        </span>
+        Name : <input type="text" ng-model="dish.name">
+        Price : <input type="text" ng-model="dish.price">
+        <button ng-click="removeItem($index)">
+          -
+        </button>
+      </li>
+      <li>
+        <button ng-click="addItem()">
+          +
+        </button>
+      </li>
+    </ul>
+  </div>
+  <script src="bower/angular/angular.js"></script>
+  <script src="bower/angular-cookies/angular-cookies.js"></script>
+  <script src="hyakuoku.js"></script>
+</body>
+</html>
