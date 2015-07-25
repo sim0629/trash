@@ -33,10 +33,10 @@ var inject = function(options) {
       var $tds = $tr.children();
       return {
         index: index,
-        id: $tds.eq(4).text(),
-        number: $tds.eq(5).text(),
-        total: +$tds.eq(12).text().split(" ")[0],
-        current: +$tds.eq(14 - oddeven).text(),
+        id: $tds.eq(5).text(),
+        number: $tds.eq(6).text(),
+        total: +$tds.eq(13).text().split(" ")[0],
+        current: +$tds.eq(15 - oddeven).text(),
       };
     });
 
