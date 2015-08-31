@@ -666,7 +666,8 @@ var inject = function(options, ocr) {
     }
     return -1;
   };
-  var nextIndex = findNextIndex();
+  //var nextIndex = findNextIndex();
+  var nextIndex = 0;
   if(nextIndex >= 0) {
     $(".tab_cont tbody input[type=checkbox]")
       .eq(nextIndex)
@@ -712,7 +713,8 @@ var inject = function(options, ocr) {
     prevCapture = capture;
     prevResult = result;
     $("#inputTextView").val(result);
-    //fnCourseApproveCheck();
+    var interval = 1500 + parseInt(Math.random() * 500);
+    setTimeout(function() { fnCourseApproveCheck(); }, interval);
   });
 };
 
