@@ -44,6 +44,7 @@ var ocr = function() {
     this.get = function(x, y) {
       return this.buffer[y * this.width + x];
     };
+    this.dataURL = "";
   };
 
   var captureScreen = function() {
@@ -59,6 +60,7 @@ var ocr = function() {
     for(idx = 0; idx < data.length; idx += 4) {
       cr.buffer.push(newColor(data[idx], data[idx + 1], data[idx + 2]));
     }
+    cr.dataURL = canvas.toDataURL();
     return cr;
   };
 
@@ -567,17 +569,10 @@ var ocr = function() {
     return [r1, r2];
   };
 
-  this.main = function() {
-    var capture = captureScreen();
-    var res = processOcr(capture, 0, 0, 51, 25);
-    if(res[0] == -1 || res[1] == -1) {
-      console.error(res);
-      return "42";
-    }
-    return "" + res[0] + res[1];
+  return {
+    'captureScreen': captureScreen,
+    'processOcr': processOcr,
   };
-
-  return this;
 };
 
 var inject = function(options, ocr) {
@@ -676,8 +671,19 @@ var inject = function(options, ocr) {
       .eq(nextIndex)
       .click();
   }
+
+  var getOcrResult = function(capture) {
+    var res = ocr.processOcr(capture, 0, 0, 51, 25);
+    if(res[0] == -1 || res[1] == -1) {
+      console.error(res);
+      return "42";
+    }
+    return "" + res[0] + res[1];
+  };
   $("#imageText").on("load", function() {
-    $("#inputTextView").val(ocr.main());
+    var capture = ocr.captureScreen();
+    var result = getOcrResult(capture);
+    $("#inputTextView").val(result);
     //fnCourseApproveCheck();
   });
 };
