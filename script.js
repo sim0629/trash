@@ -49,8 +49,10 @@ var ocr = function() {
 
   var captureScreen = function() {
     var canvas = document.createElement('canvas');
-    var context = canvas.getContext('2d');
     var img = document.getElementById('imageText');
+    canvas.width = img.width;
+    canvas.height = img.height;
+    var context = canvas.getContext('2d');
     context.drawImage(img, 0, 0);
     var data = context.getImageData(0, 0, img.width, img.height).data;
     var cr = new CaptureResult();
