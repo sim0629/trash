@@ -680,9 +680,35 @@ var inject = function(options, ocr) {
     }
     return "" + res[0] + res[1];
   };
+  var checkPrevFail = function() {
+    var text = $("#frame101").contents().find("html").text();
+    var index = text.indexOf("수강신청 확인문자와 입력하신 문자가 일치하지 않습니다.");
+    return index !== -1;
+  };
+  var saveFailedCapture = function(capture, result) {
+    if(typeof(options.misc.saveFailedURL) == "undefined") {
+      console.log("Set 'saveFailedURL' option");
+      return;
+    }
+    $.ajax({
+      'url': options.misc.saveFailedURL,
+      'dataType': "jsonp",
+      'data': {
+        'capture': capture.dataURL,
+        'result': result,
+      },
+    });
+  };
+  var prevCapture = null;
+  var prevResult = "";
   $("#imageText").on("load", function() {
+    if(prevCapture != null && checkPrevFail()) {
+      saveFailedCapture(prevCapture, prevResult);
+    }
     var capture = ocr.captureScreen();
     var result = getOcrResult(capture);
+    prevCapture = capture;
+    prevResult = result;
     $("#inputTextView").val(result);
     //fnCourseApproveCheck();
   });
