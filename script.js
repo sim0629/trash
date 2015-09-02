@@ -390,7 +390,7 @@ var ocr = function() {
     var rad;
     var i, j;
     var r, c;
-    for(rad = -0.35; rad <= 0.35; rad += 0.5) {
+    for(rad = -0.35; rad <= 0.35; rad += 0.05) {
       var minX = 1e60, minY = 1e60, maxX = -1e60, maxY = -1e60;
       var iminX = width, iminY = height, imaxX = 0, imaxY = 0;
       for(j = 0; j < height; j++) {
