@@ -47,9 +47,8 @@ var ocr = function() {
     this.dataURL = "";
   };
 
-  var captureScreen = function() {
+  var captureScreen = function(img) {
     var canvas = document.createElement('canvas');
-    var img = document.getElementById('imageText');
     canvas.width = img.width;
     canvas.height = img.height;
     var context = canvas.getContext('2d');
@@ -707,7 +706,8 @@ var inject = function(options, ocr) {
     if(prevCapture != null && checkPrevFail()) {
       saveFailedCapture(prevCapture, prevResult);
     }
-    var capture = ocr.captureScreen();
+    var img = document.getElementById('imageText');
+    var capture = ocr.captureScreen(img);
     var result = getOcrResult(capture);
     prevCapture = capture;
     prevResult = result;
