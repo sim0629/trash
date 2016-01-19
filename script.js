@@ -687,7 +687,7 @@ var inject = function(options, ocr) {
     return index !== -1;
   };
   var saveFailedCapture = function(capture, result) {
-    if(typeof(options.misc.saveFailedURL) == "undefined") {
+    if(!options.misc.saveFailedURL) {
       console.log("Set 'saveFailedURL' option");
       return;
     }
